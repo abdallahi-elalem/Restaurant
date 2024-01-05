@@ -1,10 +1,10 @@
 package com.inn.restaurant.restImpl;
 
 import com.inn.restaurant.POJO.Bill;
-import com.inn.restaurant.constents.CafeConstants;
+import com.inn.restaurant.constents.RestaurantConstants;
 import com.inn.restaurant.rest.BillRest;
 import com.inn.restaurant.service.BillService;
-import com.inn.restaurant.utils.CafeUtils;
+import com.inn.restaurant.utils.RestaurantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class BillRestImpl implements BillRest {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
@@ -58,7 +58,7 @@ public class BillRestImpl implements BillRest {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

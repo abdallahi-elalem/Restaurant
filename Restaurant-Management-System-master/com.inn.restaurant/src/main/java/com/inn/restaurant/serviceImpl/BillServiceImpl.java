@@ -3,10 +3,10 @@ package com.inn.restaurant.serviceImpl;
 import com.inn.restaurant.JWT.CustomerUserDetailsService;
 import com.inn.restaurant.JWT.JwtFilter;
 import com.inn.restaurant.POJO.Bill;
-import com.inn.restaurant.constents.CafeConstants;
+import com.inn.restaurant.constents.RestaurantConstants;
 import com.inn.restaurant.dao.BillDao;
 import com.inn.restaurant.service.BillService;
-import com.inn.restaurant.utils.CafeUtils;
+import com.inn.restaurant.utils.RestaurantUtils;
 import com.inn.restaurant.utils.EmailUtil;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -56,7 +56,7 @@ public class BillServiceImpl implements BillService {
                 if (requestMap.containsKey("isGenerate") && !(Boolean) requestMap.get("isGenerate")) {
                     filename = (String) requestMap.get("uuid");
                 } else {
-                    filename = CafeUtils.getUUID();
+                    filename = RestaurantUtils.getUUID();
                     requestMap.put("uuid", filename);
                     insertBill(requestMap);
                 }
@@ -64,7 +64,7 @@ public class BillServiceImpl implements BillService {
                 String data = "Name: " + requestMap.get("name") + "\n" + "Contact Number: " + requestMap.get("contactNumber") +
                         "\n" + "Email: " + requestMap.get("email") + "\n" + "Payment Method: " + requestMap.get("paymentMethod");
                 Document document = new Document();
-                PdfWriter.getInstance(document, new FileOutputStream(CafeConstants.STORE_LOCATION + "\\" + filename + ".pdf"));
+                PdfWriter.getInstance(document, new FileOutputStream(RestaurantConstants.STORE_LOCATION + "\\" + filename + ".pdf"));
                 document.open();
                 setRectaangleInPdf(document);
 
@@ -84,9 +84,9 @@ public class BillServiceImpl implements BillService {
 
 
                 // Print table data
-                JSONArray jsonArray = CafeUtils.getJsonArrayFromString((String) requestMap.get("productDetails"));
+                JSONArray jsonArray = RestaurantUtils.getJsonArrayFromString((String) requestMap.get("productDetails"));
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    addRows(table, CafeUtils.getMapFromJson(jsonArray.getString(i)));
+                    addRows(table, RestaurantUtils.getMapFromJson(jsonArray.getString(i)));
                 }
 
                 document.add(table);
@@ -98,11 +98,11 @@ public class BillServiceImpl implements BillService {
                 document.close();
                 return new ResponseEntity<>("{\"uuid\":\"" + filename + "\"}", HttpStatus.OK);
             }
-            return CafeUtils.getResponeEntity("Required data not found", HttpStatus.BAD_REQUEST);
+            return RestaurantUtils.getResponeEntity("Required data not found", HttpStatus.BAD_REQUEST);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -124,9 +124,9 @@ public class BillServiceImpl implements BillService {
             if (!requestMap.containsKey("uuid") && validateResquestMap(requestMap)) {
                 return new ResponseEntity<>(byteArray, HttpStatus.BAD_REQUEST);
             }
-            String filepath = CafeConstants.STORE_LOCATION + "\\" + (String) requestMap.get("uuid") + ".pdf";
+            String filepath = com.inn.restaurant.constents.RestaurantConstants.STORE_LOCATION + "\\" + (String) requestMap.get("uuid") + ".pdf";
 
-            if (CafeUtils.isFileExist(filepath)) {
+            if (RestaurantUtils.isFileExist(filepath)) {
                 byteArray = getByteArray(filepath);
                 return new ResponseEntity<>(byteArray, HttpStatus.OK);
             } else {
@@ -150,17 +150,17 @@ public class BillServiceImpl implements BillService {
                 if (!optional.isEmpty()) {
                     billDao.deleteById(id);
                     //System.out.println("Product is deleted successfully");
-                    return CafeUtils.getResponeEntity("Bill is deleted successfully", HttpStatus.OK);
+                    return RestaurantUtils.getResponeEntity("Bill is deleted successfully", HttpStatus.OK);
                 }
                 //System.out.println("Product id doesn't exist");
-                return CafeUtils.getResponeEntity("Bill id doesn't exist", HttpStatus.OK);
+                return RestaurantUtils.getResponeEntity("Bill id doesn't exist", HttpStatus.OK);
             } else {
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void insertBill(Map<String, Object> requestMap) {

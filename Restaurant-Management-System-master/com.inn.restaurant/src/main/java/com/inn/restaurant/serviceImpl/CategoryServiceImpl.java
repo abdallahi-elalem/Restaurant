@@ -4,10 +4,10 @@ import com.google.common.base.Strings;
 import com.inn.restaurant.JWT.CustomerUserDetailsService;
 import com.inn.restaurant.JWT.JwtFilter;
 import com.inn.restaurant.POJO.Category;
-import com.inn.restaurant.constents.CafeConstants;
+import com.inn.restaurant.constents.RestaurantConstants;
 import com.inn.restaurant.dao.CategoryDao;
 import com.inn.restaurant.service.CategoryService;
-import com.inn.restaurant.utils.CafeUtils;
+import com.inn.restaurant.utils.RestaurantUtils;
 import com.inn.restaurant.utils.EmailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +44,16 @@ public class CategoryServiceImpl implements CategoryService {
             if(jwtFilter.isAdmin()){
                 if(validateCategoryMap(requestMap, false)){
                     categoryDao.save(getCategoryFromMap(requestMap , false));
-                    return CafeUtils.getResponeEntity("Category Added Successfully", HttpStatus.OK);
+                    return RestaurantUtils.getResponeEntity("Category Added Successfully", HttpStatus.OK);
                 }
             }else{
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //System.out.println(CafeConstants.SOMETHING_WENT_WRONG);
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private boolean validateCategoryMap(Map<String, String> requestMap, boolean validateId) {
@@ -98,20 +98,20 @@ public class CategoryServiceImpl implements CategoryService {
 
                     if (!optional.isEmpty()) {
                         categoryDao.save(getCategoryFromMap(requestMap,true));
-                        return CafeUtils.getResponeEntity("Category is updated successfully", HttpStatus.OK);
+                        return RestaurantUtils.getResponeEntity("Category is updated successfully", HttpStatus.OK);
 
                     } else {
-                        return CafeUtils.getResponeEntity("Category id doesn't exist", HttpStatus.OK);
+                        return RestaurantUtils.getResponeEntity("Category id doesn't exist", HttpStatus.OK);
                     }
 
                 }
-                return CafeUtils.getResponeEntity(CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
             } else {
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

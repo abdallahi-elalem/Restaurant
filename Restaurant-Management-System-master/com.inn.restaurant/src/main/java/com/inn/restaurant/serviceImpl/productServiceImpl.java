@@ -4,10 +4,10 @@ import com.inn.restaurant.JWT.CustomerUserDetailsService;
 import com.inn.restaurant.JWT.JwtFilter;
 import com.inn.restaurant.POJO.Category;
 import com.inn.restaurant.POJO.Product;
-import com.inn.restaurant.constents.CafeConstants;
+import com.inn.restaurant.constents.RestaurantConstants;
 import com.inn.restaurant.dao.productDao;
 import com.inn.restaurant.service.productService;
-import com.inn.restaurant.utils.CafeUtils;
+import com.inn.restaurant.utils.RestaurantUtils;
 import com.inn.restaurant.utils.EmailUtil;
 import com.inn.restaurant.wrapper.ProductWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -50,16 +50,16 @@ public class productServiceImpl implements productService {
             if (jwtFilter.isAdmin()) {
                 if (validateProductMap(requestMap, false)) {
                     productDao.save(getProductFromMap(requestMap, false));
-                    return CafeUtils.getResponeEntity("Product Added Successfully", HttpStatus.OK);
+                    return RestaurantUtils.getResponeEntity("Product Added Successfully", HttpStatus.OK);
                 }
             } else {
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //System.out.println(CafeConstants.SOMETHING_WENT_WRONG);
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
@@ -82,21 +82,21 @@ public class productServiceImpl implements productService {
                     Optional optional = productDao.findById(Integer.parseInt(requestMap.get("id")));
                     if (!optional.isEmpty()) {
                         productDao.save(getProductFromMap(requestMap, true));
-                        return CafeUtils.getResponeEntity("Product is updated successfully", HttpStatus.OK);
+                        return RestaurantUtils.getResponeEntity("Product is updated successfully", HttpStatus.OK);
 
                     } else {
-                        return CafeUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
+                        return RestaurantUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
                     }
 
                 }
-                return CafeUtils.getResponeEntity(CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
             } else {
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -107,18 +107,18 @@ public class productServiceImpl implements productService {
                 if (!optional.isEmpty()) {
                     productDao.deleteById(id);
                     //System.out.println("Product is deleted successfully");
-                    return CafeUtils.getResponeEntity("Product is deleted successfully", HttpStatus.OK);
+                    return RestaurantUtils.getResponeEntity("Product is deleted successfully", HttpStatus.OK);
                 }
                 //System.out.println("Product id doesn't exist");
-                return CafeUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
+                return RestaurantUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
             } else {
-                return CafeUtils.getResponeEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //System.out.println(CafeConstants.SOMETHING_WENT_WRONG);
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
@@ -151,14 +151,14 @@ public class productServiceImpl implements productService {
                 Optional optional = productDao.findById(Integer.parseInt(requestMap.get("id")));
                 if (!optional.isEmpty()) {
                     productDao.updateProductStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-                    return CafeUtils.getResponeEntity("Product status is updated successfully", HttpStatus.OK);
+                    return RestaurantUtils.getResponeEntity("Product status is updated successfully", HttpStatus.OK);
                 }
-                return CafeUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
+                return RestaurantUtils.getResponeEntity("Product id doesn't exist", HttpStatus.OK);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return CafeUtils.getResponeEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return RestaurantUtils.getResponeEntity(com.inn.restaurant.constents.RestaurantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

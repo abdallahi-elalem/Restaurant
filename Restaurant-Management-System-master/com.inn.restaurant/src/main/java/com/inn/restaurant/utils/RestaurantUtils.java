@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class CafeUtils {
-    public CafeUtils(){
+public class RestaurantUtils {
+    public RestaurantUtils(){
 
     }
     public static ResponseEntity<String> getResponeEntity(String responseMessage , HttpStatus httpStatus){
