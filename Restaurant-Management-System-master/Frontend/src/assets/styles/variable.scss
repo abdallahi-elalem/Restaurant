@@ -14,8 +14,8 @@ $headingfont: 'Poppins', sans-serif;
 
 /*Material Theme Colors*/
 
-$primary: mat-palette($mat-blue, 600);
-$accent: mat-palette($mat-blue, 500);
+$primary: mat-palette($mat-cyan, 600);
+$accent: mat-palette($mat-cyan, 500);
 $warn: mat-palette($mat-red, 500);
 $theme: mat-light-theme($primary, $accent, $warn);
 $background: map-get($theme, background);
@@ -37,7 +37,7 @@ $custom-typography: mat-typography-config(
 
 /*Theme Colors*/
 
-$topbar: #02bec9;
+$topbar: #00acc1;
 $sidebar: #fff;
 $sidebar-white: #e5edef;
 $sidebar-alt: #f2f6f8;
@@ -50,16 +50,16 @@ $sidebar-icons: #99abb4;
 $font-16: 16px;
 
 $light-text: #a6b7bf;
-$themecolor: #02bec9;
-$themecolor-alt: #02bec9;
-$themecolor-dark: #02bec9;
+$themecolor: #00acc1;
+$themecolor-alt: #00acc1;
+$themecolor-dark: #00acc1;
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
 $success: #26c6da;
 $warning: #ffb22b;
-$primary: #02bec9;
-$info: #02bec9;
+$primary: #00acc1;
+$info: #00acc1;
 // $inverse: #2f3d4a;
 $inverse: white;
 $muted: #99abb4;
@@ -78,10 +78,10 @@ $light-inverse: #f6f6f6;
 $light-megna: #e0f2f4;
 
 $danger-dark: #e6294b;
-$success-dark: #02bec9;
+$success-dark: #00acc1;
 $warning-dark: #e9ab2e;
-$primary-dark: #02bec9;
-$info-dark: #02bec9;
+$primary-dark: #00acc1;
+$info-dark: #00acc1;
 $red-dark: #d61f1f;
 $inverse-dark: #232a37;
 $dark-transparent: rgba(0, 0, 0, 0.05);
@@ -90,9 +90,9 @@ $dark-transparent: rgba(0, 0, 0, 0.05);
 $white: #ffffff;
 $red: #fb3a3a;
 $yellow: #a0aec4;
-$purple: #02bec9;
-$blue: #02bec9;
-$megna: #00897b;
+$purple: #00acc1;
+$blue: #00acc1;
+$megna: #00acc1;
 
 /*Extra Variable*/
 $rgt: right;
